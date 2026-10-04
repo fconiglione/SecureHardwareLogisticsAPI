@@ -1,0 +1,6 @@
+@SecureHardwareLogisticsAPI_HostAddress = http://localhost:5047
+
+GET {{SecureHardwareLogisticsAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
