@@ -4,3 +4,7 @@ GET {{SecureHardwareLogisticsAPI_HostAddress}}/assets/
 Accept: application/json
 
 ###
+PUT {{SecureHardwareLogisticsAPI_HostAddress}}/assets/:id
+Accept: application/json
+
+###

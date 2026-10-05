@@ -13,6 +13,7 @@ public class AssetsController : ControllerBase
     {
         _assetService = assetService;
     }
+    // Method to add a HardwareAsset into inventory
     [HttpPost]
     public async Task<IActionResult> ProvisionAsset([FromBody] ProvisionAssetDto request)
     {
@@ -24,5 +25,23 @@ public class AssetsController : ControllerBase
         var result = await _assetService.ProvisionAssetAsync(request);
 
         return Created($"/api/v1/assets/{result.Id}", result);
+    }
+    // Method to assign an AssignedMilitaryId to a HardwareAsset
+    [HttpPut("{id}/assign")]
+    public async Task<IActionResult> AssignAsset(int id, [FromBody] AssignAssetDto request)
+    {
+        if (string.IsNullOrWhiteSpace(request.AssignedMilitaryId))
+        {
+            return BadRequest("AssignedMilitaryId is required.");
+        }
+
+        var result = await _assetService.AssignAssetAsync(id, request);
+        
+        if (result == null)
+        {
+            return NotFound($"Hardware asset with ID {id} was not found.");
+        }
+
+        return Ok(result);
     }
 }

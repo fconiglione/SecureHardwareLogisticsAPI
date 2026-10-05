@@ -6,4 +6,5 @@ namespace SecureHardwareLogisticsAPI.Services;
 public interface IAssetService
 {
     Task<AssetSummaryDto> ProvisionAssetAsync(ProvisionAssetDto request);
+    Task<AssetSummaryDto> AssignAssetAsync(int id, AssignAssetDto request);
 }
