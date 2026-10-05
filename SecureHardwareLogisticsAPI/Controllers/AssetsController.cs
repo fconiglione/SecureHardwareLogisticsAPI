@@ -1,4 +1,6 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using SecureHardwareLogisticsAPI.DTOs.Requests;
 using SecureHardwareLogisticsAPI.Services;
 
@@ -50,5 +52,18 @@ public class AssetsController : ControllerBase
     {
         var assets = await _assetService.GetAssetsAsync();
         return Ok(assets);
+    }
+    // Method to get a specific HardwareAsset item and full audit history
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAsset(int id)
+    {
+        var asset = await _assetService.GetAssetAsync(id);
+        var logs = await _assetService.GetLogHistoryAsync(id);
+
+        return Ok(new
+        {
+            Asset = asset,
+            Logs = logs
+        });
     }
 }

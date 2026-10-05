@@ -85,4 +85,34 @@ public class AssetService : IAssetService
             CreatedAt = asset.CreatedAt
         });
     }
+
+    public async Task<AssetSummaryDto?> GetAssetAsync(int id)
+    {
+        var asset = await _context.HardwareAssets.FirstOrDefaultAsync(a => a.Id == id);
+            
+        if (asset == null)
+        {
+            return null;
+        }
+
+        return new AssetSummaryDto{
+            Id = asset.Id,
+            SerialNumber = asset.SerialNumber,
+            DeviceModel = asset.DeviceModel,
+            Status = asset.Status,
+            CreatedAt = asset.CreatedAt
+        };
+    }
+
+    public async Task<IEnumerable<AssetDetailDto>> GetLogHistoryAsync(int id)
+    {
+        var logHistory = await _context.AuditLogs.Where(l => l.Id == id).ToListAsync();
+        return logHistory.Select(log => new AssetDetailDto
+        {
+            Id = log.Id,
+            HardwareAssetId = log.HardwareAssetId,
+            Action = log.Action,
+            Timestamp = log.Timestamp
+        });
+    }
 }

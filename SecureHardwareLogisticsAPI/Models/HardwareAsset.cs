@@ -10,10 +10,10 @@ public class HardwareAsset
     public DateTime CreatedAt { get; set; }
     public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
 
-    public HardwareAsset(string SerialNumber, string DeviceModel)
+    public HardwareAsset(string serialNumber, string deviceModel)
     {
-        this.SerialNumber = SerialNumber;
-        this.DeviceModel = DeviceModel;
+        this.SerialNumber = serialNumber;
+        this.DeviceModel = deviceModel;
         
         CreatedAt= DateTime.UtcNow;
         Status = "In Inventory";
