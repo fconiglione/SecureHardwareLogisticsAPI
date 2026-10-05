@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using SecureHardwareLogisticsAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Connecting to DB
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 // Add services to the container.
 
