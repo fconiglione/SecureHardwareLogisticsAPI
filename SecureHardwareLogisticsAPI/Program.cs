@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SecureHardwareLogisticsAPI.Data;
+using SecureHardwareLogisticsAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<IAssetService, AssetService>();
 
 var app = builder.Build();
 

@@ -9,4 +9,13 @@ public class HardwareAsset
     public string Status { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
     public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
+
+    public HardwareAsset(string SerialNumber, string DeviceModel)
+    {
+        this.SerialNumber = SerialNumber;
+        this.DeviceModel = DeviceModel;
+        
+        CreatedAt= DateTime.UtcNow;
+        Status = "In Inventory";
+    }
 }
