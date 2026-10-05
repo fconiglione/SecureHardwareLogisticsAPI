@@ -71,4 +71,18 @@ public class AssetService : IAssetService
             CreatedAt = asset.CreatedAt
         };
     }
+
+    public async Task<IEnumerable<AssetSummaryDto>> GetAssetsAsync()
+    {
+        var assets = await _context.HardwareAssets.ToListAsync();
+
+        return assets.Select(asset => new AssetSummaryDto
+        {
+            Id = asset.Id,
+            SerialNumber = asset.SerialNumber,
+            DeviceModel = asset.DeviceModel,
+            Status = asset.Status,
+            CreatedAt = asset.CreatedAt
+        });
+    }
 }

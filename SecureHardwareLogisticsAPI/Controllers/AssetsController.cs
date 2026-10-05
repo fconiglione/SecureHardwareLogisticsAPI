@@ -44,4 +44,11 @@ public class AssetsController : ControllerBase
 
         return Ok(result);
     }
+    // Method to get all HardwareAsset items
+    [HttpGet]
+    public async Task<IActionResult> GetAssets()
+    {
+        var assets = await _assetService.GetAssetsAsync();
+        return Ok(assets);
+    }
 }
