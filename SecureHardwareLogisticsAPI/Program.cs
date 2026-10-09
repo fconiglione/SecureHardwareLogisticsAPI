@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IMaintenanceRequestService, MaintenanceRequestService>();
 
 var app = builder.Build();
 
