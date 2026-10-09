@@ -66,4 +66,10 @@ public class AssetsController : ControllerBase
             Logs = logs
         });
     }
+    // Method to submit a MaintenanceRequest for an existing HardwareAsset item
+    [HttpPost("/maintenancerequests")]
+    public async Task<IActionResult> CreateMaintenanceRequest([FromBody] MaintenanceRequestDto request)
+    {
+        return BadRequest();
+    }
 }
