@@ -1,21 +1,38 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using SecureHardwareLogisticsAPI.Data;
 using SecureHardwareLogisticsAPI.DTOs.Requests;
 using SecureHardwareLogisticsAPI.DTOs.Responses;
+using SecureHardwareLogisticsAPI.Models;
 
 namespace SecureHardwareLogisticsAPI.Services;
 
 public class MaintenanceRequestService : IMaintenanceRequestService
 {
-    private readonly DbContext _dbContext;
+    private readonly AppDbContext _context;
     
-    public MaintenanceRequestService(DbContext dbContext)
+    public MaintenanceRequestService(AppDbContext context)
     {
-        _dbContext = dbContext;
+        _context = context;
     }
 
-    public Task<MaintenanceSummaryDto> CreateMaintenanceRequestAsync(MaintenanceRequestDto maintenanceRequestDto)
+    public async Task<MaintenanceSummaryDto> CreateMaintenanceRequestAsync(MaintenanceRequestDto request)
     {
-        return null!;
+        var newMaintenanceRequest = new MaintenanceRequest(request.HardwareId, request.ReportedMilitaryId,
+            request.Urgency, request.Description);
+
+        _context.MaintenanceRequests.Add(newMaintenanceRequest);
+        await _context.SaveChangesAsync();
+
+        return new MaintenanceSummaryDto
+        {
+            Id = newMaintenanceRequest.Id,
+            HardwareId = newMaintenanceRequest.HardwareId,
+            ReportedMilitaryId = newMaintenanceRequest.ReportedMilitaryId,
+            Status = newMaintenanceRequest.Status,
+            Urgency = newMaintenanceRequest.Urgency,
+            Description = newMaintenanceRequest.Description,
+            CreatedAt = newMaintenanceRequest.CreatedAt,
+        };
     }
 }

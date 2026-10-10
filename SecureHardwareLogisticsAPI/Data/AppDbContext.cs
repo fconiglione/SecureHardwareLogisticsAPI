@@ -9,4 +9,5 @@ public class AppDbContext : DbContext
     
     public DbSet<HardwareAsset> HardwareAssets { get; set; } = null!;
     public DbSet<AuditLog> AuditLogs { get; set; } = null!;
+    public DbSet<MaintenanceRequest> MaintenanceRequests { get; set; } = null!;
 }

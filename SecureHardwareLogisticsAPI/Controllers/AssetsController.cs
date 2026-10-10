@@ -11,9 +11,11 @@ namespace SecureHardwareLogisticsAPI.Controllers;
 public class AssetsController : ControllerBase
 {
     private readonly IAssetService _assetService;
-    public AssetsController(IAssetService assetService)
+    private readonly IMaintenanceRequestService _maintenanceRequestService;
+    public AssetsController(IAssetService assetService,  IMaintenanceRequestService maintenanceRequestService)
     {
         _assetService = assetService;
+        _maintenanceRequestService = maintenanceRequestService;
     }
     // Method to add a HardwareAsset into inventory
     [HttpPost]
@@ -67,9 +69,11 @@ public class AssetsController : ControllerBase
         });
     }
     // Method to submit a MaintenanceRequest for an existing HardwareAsset item
-    [HttpPost("/maintenancerequests")]
+    [HttpPost("maintenancerequests")]
     public async Task<IActionResult> CreateMaintenanceRequest([FromBody] MaintenanceRequestDto request)
     {
-        return BadRequest();
+        var result = await _maintenanceRequestService.CreateMaintenanceRequestAsync(request);
+
+        return Created($"/api/v1/assets/maintenancerequests/{result.Id}", result);
     }
 }

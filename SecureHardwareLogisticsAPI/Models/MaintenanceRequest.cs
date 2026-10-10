@@ -1,3 +1,5 @@
+using SecureHardwareLogisticsAPI.DTOs.Responses;
+
 namespace SecureHardwareLogisticsAPI.Models;
 
 public class MaintenanceRequest
@@ -9,4 +11,15 @@ public class MaintenanceRequest
     public string Status { get; set; } = null!;
     public string Description { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
+    
+    public MaintenanceRequest(int hardwareId, int reportedMilitaryId, string urgency, string description)
+    {
+        this.HardwareId = hardwareId;
+        this.ReportedMilitaryId = reportedMilitaryId;
+        this.Urgency = urgency;
+        this.Description = description;
+        
+        Status = "New";
+        CreatedAt = DateTime.UtcNow;
+    }
 }
