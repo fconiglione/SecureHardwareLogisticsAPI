@@ -32,5 +32,11 @@ public class MaintenanceRequestsController: ControllerBase
         return Ok(result);
     }
     
-    // Method to resolve a MaintenanceRequest
+    // Method to update the Status of a MaintenanceRequest
+    [HttpPut("{id}/update")]
+    public async Task<IActionResult> UpdateMaintenanceRequestAsync(int id, [FromBody] UpdateMaintenanceRequestDto  request)
+    {
+        var result = await _maintenanceRequestService.UpdateMaintenanceRequestAsync(id, request);
+        return Ok(result);
+    }
 }
