@@ -6,4 +6,5 @@ namespace SecureHardwareLogisticsAPI.Services;
 public interface IMaintenanceRequestService
 {
     public Task<MaintenanceSummaryDto> CreateMaintenanceRequestAsync(MaintenanceRequestDto maintenanceRequestDto);
+    public Task<MaintenanceSummaryDto> GetMaintenanceRequestAsync(int id);
 }

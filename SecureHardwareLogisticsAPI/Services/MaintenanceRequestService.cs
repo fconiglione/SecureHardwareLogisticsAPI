@@ -35,4 +35,24 @@ public class MaintenanceRequestService : IMaintenanceRequestService
             CreatedAt = newMaintenanceRequest.CreatedAt,
         };
     }
+
+    public async Task<MaintenanceSummaryDto> GetMaintenanceRequestAsync(int id)
+    {
+        var maintenanceRequest = _context.MaintenanceRequests.FirstOrDefault(x => x.Id == id);
+
+        if (maintenanceRequest == null)
+        {
+            return null;
+        }
+        
+        return new MaintenanceSummaryDto{
+            Id = maintenanceRequest.Id,
+            HardwareId = maintenanceRequest.HardwareId,
+            ReportedMilitaryId = maintenanceRequest.ReportedMilitaryId,
+            Status = maintenanceRequest.Status,
+            Urgency = maintenanceRequest.Urgency,
+            Description = maintenanceRequest.Description,
+            CreatedAt = maintenanceRequest.CreatedAt,
+            };
+    }
 }
