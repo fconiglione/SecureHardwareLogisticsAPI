@@ -56,7 +56,7 @@ public class MaintenanceRequestService : IMaintenanceRequestService
             };
     }
 
-    public async Task<MaintenanceSummaryDto> UpdateMaintenanceRequestAsync(int id,
+    public async Task<MaintenanceSummaryDto?> UpdateMaintenanceRequestAsync(int id,
         UpdateMaintenanceRequestDto request)
     {
         var updatedMaintenanceRequest = _context.MaintenanceRequests.FirstOrDefault(x => id == x.Id);
