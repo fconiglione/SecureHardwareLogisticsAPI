@@ -66,4 +66,12 @@ public class AssetsController : ControllerBase
             Logs = logs
         });
     }
+    
+    // Method to SOFT delete a HardwareAsset given its id and add to the audit log
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAsset([FromQuery] int id)
+    {
+        var result = await _assetService.DeleteAssetAsync(id);
+        return Ok(result);
+    }
 }

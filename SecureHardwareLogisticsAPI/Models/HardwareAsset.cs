@@ -7,6 +7,7 @@ public class HardwareAsset
     public string DeviceModel { get; set; } = null!;
     public string? AssignedMilitaryId { get; set; }
     public string Status { get; set; } = null!;
+    public bool IsDecommissioned { get; set; } = false;
     public DateTime CreatedAt { get; set; }
     public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
 

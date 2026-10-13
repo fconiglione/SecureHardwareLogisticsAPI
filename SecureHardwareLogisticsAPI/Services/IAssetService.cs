@@ -10,4 +10,5 @@ public interface IAssetService
     Task<IEnumerable<AssetSummaryDto>> GetAssetsAsync();
     Task<AssetSummaryDto?> GetAssetAsync(int id);
     Task<IEnumerable<AssetDetailDto>> GetLogHistoryAsync(int id);
+    Task<AssetSummaryDto> DeleteAssetAsync(int id);
 }

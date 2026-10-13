@@ -6,5 +6,6 @@ public class AssetSummaryDto
     public string SerialNumber { get; set; } = null!;
     public string DeviceModel { get; set; } = null!;
     public string Status { get; set; } = null!;
+    public bool IsDecommissioned { get; set; } = false;
     public DateTime CreatedAt { get; set; }
 }

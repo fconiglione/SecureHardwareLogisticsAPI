@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using SecureHardwareLogisticsAPI.Data;
 using SecureHardwareLogisticsAPI.DTOs.Requests;
@@ -36,6 +37,7 @@ public class AssetService : IAssetService
             SerialNumber = newAsset.SerialNumber,
             DeviceModel = newAsset.DeviceModel,
             Status = newAsset.Status,
+            IsDecommissioned = newAsset.IsDecommissioned,
             CreatedAt = newAsset.CreatedAt
         };
     }
@@ -68,6 +70,7 @@ public class AssetService : IAssetService
             SerialNumber = asset.SerialNumber,
             DeviceModel = asset.DeviceModel,
             Status = asset.Status,
+            IsDecommissioned = asset.IsDecommissioned,
             CreatedAt = asset.CreatedAt
         };
     }
@@ -82,6 +85,7 @@ public class AssetService : IAssetService
             SerialNumber = asset.SerialNumber,
             DeviceModel = asset.DeviceModel,
             Status = asset.Status,
+            IsDecommissioned = asset.IsDecommissioned,
             CreatedAt = asset.CreatedAt
         });
     }
@@ -100,6 +104,7 @@ public class AssetService : IAssetService
             SerialNumber = asset.SerialNumber,
             DeviceModel = asset.DeviceModel,
             Status = asset.Status,
+            IsDecommissioned = asset.IsDecommissioned,
             CreatedAt = asset.CreatedAt
         };
     }
@@ -112,7 +117,36 @@ public class AssetService : IAssetService
             Id = log.Id,
             HardwareAssetId = log.HardwareAssetId,
             Action = log.Action,
+            IsDecommissioned = log.IsDecommissioned,
             Timestamp = log.Timestamp
         });
+    }
+
+    public async Task<AssetSummaryDto> DeleteAssetAsync(int id)
+    {
+        var asset = await _context.HardwareAssets.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (asset == null)
+        {
+            return null;
+        }
+        
+        if (asset.IsDecommissioned)
+        {
+            throw new InvalidOperationException("Asset is already decommissioned."); 
+        }
+        
+        asset.IsDecommissioned = true;
+        asset.Status = "Decommissioned";
+        await _context.SaveChangesAsync();
+        
+        return new AssetSummaryDto{
+            Id = asset.Id,
+            SerialNumber = asset.SerialNumber,
+            DeviceModel = asset.DeviceModel,
+            Status = asset.Status,
+            IsDecommissioned = asset.IsDecommissioned,
+            CreatedAt = asset.CreatedAt
+        };
     }
 }

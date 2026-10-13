@@ -37,6 +37,9 @@ namespace SecureHardwareLogisticsAPI.Migrations
                     b.Property<int>("HardwareAssetId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsDecommissioned")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp with time zone");
 
@@ -64,6 +67,9 @@ namespace SecureHardwareLogisticsAPI.Migrations
                     b.Property<string>("DeviceModel")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDecommissioned")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SerialNumber")
                         .IsRequired()
