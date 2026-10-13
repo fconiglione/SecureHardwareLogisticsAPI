@@ -11,11 +11,13 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connect
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddHttpClient();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IMaintenanceRequestService, MaintenanceRequestService>();
+builder.Services.AddScoped<IExternalSupplierService, ExternalSupplierService>();
 
 var app = builder.Build();
 
